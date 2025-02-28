@@ -78,7 +78,6 @@ const HomeHuntLanding = ({setPage}) => {
             <option value="any">Any Property</option>
             <option value="apartment">Apartment</option>
             <option value="house">House</option>
-            <option value="condo">Condo</option>
             <option value="townhouse">Townhouse</option>
           </select>
           <button type="submit">Search</button>
