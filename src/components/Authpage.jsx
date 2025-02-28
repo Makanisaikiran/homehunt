@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
+import { ToastContainer, toast } from 'react-toastify';
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
@@ -41,15 +42,20 @@ const AuthPage = ({setPage}) => {
     setError('');
     setLoading(true);
     try {
-      if ({isLogin}) {
+      if (isLogin) {
         // Sign in with email and password
         await signInWithEmailAndPassword(auth, email, password);
-        setPage("Landing")
+        toast.success("Successfully signed in! 🎉");
+        setTimeout(() => {
+          setPage("Landing")
+        }, 1000);
       } else {
         // Sign up with email and password
         await createUserWithEmailAndPassword(auth, email, password);
+        toast.success("Account created successfully! 🚀"); 
       }
     } catch (error) {
+      toast.error(`Error: ${error.message}`);
       setError(error.message); // Display error message if authentication fails
     } finally {
       setLoading(false);
@@ -62,8 +68,10 @@ const AuthPage = ({setPage}) => {
     setLoading(true);
     
     try {
+      toast.success("Logged in as Guest! 👤");
       await signInAnonymously(auth);
     } catch (error) {
+      toast.error(`Guest Login Failed: ${error.message}`);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -77,8 +85,10 @@ const AuthPage = ({setPage}) => {
     
     try {
       await signInWithPopup(auth, provider); // Opens a popup for Google authentication
+      toast.success("Logged in with Google! ✅");
     } catch (error) {
       setError(error.message);
+      toast.error(`Google Login Failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -151,6 +161,7 @@ const AuthPage = ({setPage}) => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

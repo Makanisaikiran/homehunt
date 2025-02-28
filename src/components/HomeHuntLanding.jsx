@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './HomeHuntLanding.css';
+import { ToastContainer } from 'react-toastify';
+
 
 const HomeHuntLanding = ({setPage}) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -53,7 +55,6 @@ const HomeHuntLanding = ({setPage}) => {
           <a href="#">Rent</a>
           <a href="#">Buy</a>
           <a href="#">Sell</a>
-          <a href="#">Mortgage</a>
         </nav>
         <div className="auth-buttons">
           <button className="signin" onClick={()=>setPage("Auth")}>Sign In</button>
@@ -118,6 +119,7 @@ const HomeHuntLanding = ({setPage}) => {
       <footer className="footer">
         <p>&copy; 2025 HomeHunt. All rights reserved.</p>
       </footer>
+      <ToastContainer />
     </div>
   );
 };
