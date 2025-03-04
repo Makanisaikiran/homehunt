@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
@@ -10,6 +12,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 import './Authpage.css'; // Import the CSS file for styling
+import { Link } from 'react-router-dom';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -27,9 +30,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider(); // Google authentication provider
 
-const AuthPage = ({setPage}) => {
+const AuthPage = ({setPage ,setIsLogin ,isLogin}) => {
+  const navigate = useNavigate();
   // State variables for login/signup toggle, email, password, error messages, and loading status
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -45,14 +48,17 @@ const AuthPage = ({setPage}) => {
       if (isLogin) {
         // Sign in with email and password
         await signInWithEmailAndPassword(auth, email, password);
+        console.log(email)
         toast.success("Successfully signed in! 🎉");
+        navigate("/landing");
+        
         setTimeout(() => {
           setPage("Landing")
         }, 1000);
       } else {
         // Sign up with email and password
         await createUserWithEmailAndPassword(auth, email, password);
-        toast.success("Account created successfully! 🚀"); 
+        toast.success("Account created successfully! 🚀");
       }
     } catch (error) {
       toast.error(`Error: ${error.message}`);
@@ -61,7 +67,7 @@ const AuthPage = ({setPage}) => {
       setLoading(false);
     }
   };
-
+  
   // Function to handle anonymous guest login
   const handleGuestLogin = async () => {
     setError('');
@@ -70,6 +76,9 @@ const AuthPage = ({setPage}) => {
     try {
       toast.success("Logged in as Guest! 👤");
       await signInAnonymously(auth);
+      setTimeout(() => {
+        setPage("Landing")
+      }, 1000);
     } catch (error) {
       toast.error(`Guest Login Failed: ${error.message}`);
       setError(error.message);
@@ -96,7 +105,6 @@ const AuthPage = ({setPage}) => {
 
   return (
     <div className="auth-container">
-      
       <div className="auth-header">
         <h2>{isLogin ? 'Sign in to your account' : 'Create a new account'}</h2>
       </div>

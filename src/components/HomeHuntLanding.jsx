@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './HomeHuntLanding.css';
+import AuthPage from './Authpage';
 import { ToastContainer } from 'react-toastify';
 
 
-const HomeHuntLanding = ({setPage}) => {
+const HomeHuntLanding = ({setPage,setIsLogin,isLogin}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState([500, 5000]);
   const [propertyType, setPropertyType] = useState('any');
