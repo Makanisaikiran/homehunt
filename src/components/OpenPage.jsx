@@ -40,7 +40,7 @@ const OpenPage = ({setPage ,setIsLogin ,isLogin}) => {
       <header className="hero-section">
         <div className="hero-content">
           <div className="hero-text">
-            <h1>Simplify Your Home Search & Connect with Expert Agents</h1>
+            <h1>Simplify Your Home Search & Connect Directly with Home Owners</h1>
             <p>Search across all your favorite real estate websites, save homes you love, and get connected with a local agent</p>
             
           </div>
